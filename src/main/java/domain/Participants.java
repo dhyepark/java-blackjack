@@ -30,9 +30,9 @@ public class Participants {
     public void dealOneCardToAll(Deck deck) {
         deck.shuffleCards();
         for (User user : players) {
-            user.receiveCard(deck.drawCard());
+            user.receiveCard(deck.draw());
         }
-        dealer.receiveCard(deck.drawCard());
+        dealer.receiveCard(deck.draw());
     }
 
     public Card getDealerFirstCard() {
@@ -54,7 +54,7 @@ public class Participants {
     }
 
     public void dealCard(Deck deck, int index) {
-        players.get(index).receiveCard(deck.drawCard());
+        players.get(index).receiveCard(deck.draw());
     }
 
     public void calculateUserScore(int index) {

@@ -19,7 +19,7 @@ public class Deck {
         shuffleStrategy.shuffle(cards);
     }
 
-    public Card drawCard() {
+    public Card draw() {
         if (cards.isEmpty()) {
             throw new NoSuchElementException("[ERROR] 더 이상의 카드를 꺼낼 수 없습니다.");
         }

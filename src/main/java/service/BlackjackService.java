@@ -77,7 +77,7 @@ public class BlackjackService {
 
     public boolean dealExtraCardIfNeeded() {
         if (participants.shouldDealerDraw()) {
-            participants.dealCardToDealer(deck.drawCard());
+            participants.dealCardToDealer(deck.draw());
             return true;
         }
         return false;

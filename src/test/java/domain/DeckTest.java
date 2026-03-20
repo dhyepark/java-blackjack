@@ -21,7 +21,7 @@ public class DeckTest {
 
         // when
         for (int i = 0; i < 52; i++) {
-            cards.add(deck.drawCard());
+            cards.add(deck.draw());
         }
 
         // then
@@ -37,7 +37,7 @@ public class DeckTest {
 
         // when
         deck.shuffleCards();
-        Card drawnCard = deck.drawCard();
+        Card drawnCard = deck.draw();
 
         // then
         assertThat(drawnCard).isEqualTo(expectedFirstCard);
@@ -52,11 +52,11 @@ public class DeckTest {
 
         //  52회까지 정상 뽑기 가능
         for (int i = 0; i < 52; i++) {
-            deck.drawCard();
+            deck.draw();
         }
 
         // when & then
-        assertThatThrownBy(deck::drawCard)
+        assertThatThrownBy(deck::draw)
                 .isInstanceOf(NoSuchElementException.class)
                 .hasMessage("[ERROR] 더 이상의 카드를 꺼낼 수 없습니다.");
     }
