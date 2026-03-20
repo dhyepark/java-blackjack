@@ -69,6 +69,6 @@ public class HandTest {
             hand.saveCard(card);
         }
         hand.calculateHandScore();
-        return hand.getHandTotalScore();
+        return hand.getTotalScore();
     }
 }

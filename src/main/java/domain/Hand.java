@@ -11,11 +11,11 @@ import java.util.stream.Collectors;
 
 public class Hand {
     private final List<Card> cards;
-    private int handTotalScore;
+    private int totalScore;
 
     public Hand() {
         cards = new ArrayList<>();
-        handTotalScore = 0;
+        totalScore = 0;
     }
 
     public void saveCard(Card card) {
@@ -35,7 +35,7 @@ public class Hand {
     public void calculateHandScore() {
         int initialScore = calculateInitialScore();
         int aceCount = countAces();
-        this.handTotalScore = applyAceRule(initialScore, aceCount);
+        this.totalScore = applyAceRule(initialScore, aceCount);
     }
 
     private int calculateInitialScore() {
@@ -61,18 +61,18 @@ public class Hand {
     }
 
     public Boolean determineDealerDealMore() {
-        return handTotalScore <= DEALER_MAX_HIT_SCORE;
+        return totalScore <= DEALER_MAX_HIT_SCORE;
     }
 
-    public int getHandTotalScore() {
-        return handTotalScore;
+    public int getTotalScore() {
+        return totalScore;
     }
 
     public boolean isBlackjack() {
-        return (getHandTotalScore() == BLACKJACK_TARGET_SCORE) && (cards.size() == BLACKJACK_CARD_COUNT);
+        return (getTotalScore() == BLACKJACK_TARGET_SCORE) && (cards.size() == BLACKJACK_CARD_COUNT);
     }
 
     public boolean isBust() {
-        return this.handTotalScore > BLACKJACK_TARGET_SCORE;
+        return this.totalScore > BLACKJACK_TARGET_SCORE;
     }
 }

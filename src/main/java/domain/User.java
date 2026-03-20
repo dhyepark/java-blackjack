@@ -30,7 +30,7 @@ public class User {
     }
 
     public int getTotalScore() {
-        return hand.getHandTotalScore();
+        return hand.getTotalScore();
     }
 
     public boolean isBlackjack() {

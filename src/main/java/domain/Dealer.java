@@ -28,7 +28,7 @@ public class Dealer {
     }
 
     public int getTotalScore() {
-        return hand.getHandTotalScore();
+        return hand.getTotalScore();
     }
 
     public boolean isBlackjack() {
