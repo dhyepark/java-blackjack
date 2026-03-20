@@ -6,6 +6,7 @@ import dto.ProfitResultDTO;
 import dto.UserCardsDTO;
 import dto.UserResultDTO;
 import java.util.List;
+import java.util.function.Supplier;
 import service.BlackjackService;
 import util.Parser;
 import util.ServiceLocator;
@@ -78,31 +79,23 @@ public class BlackjackController {
     }
 
     private List<String> readPlayersName() {
-        while (true) {
-            try {
-                outputView.printParticipantsNameRequest();
-                String playersName = inputView.readPlayersName();
-                validator.validatePlayersName(playersName);
-                return parser.parsePlayersName(playersName);
-            } catch (IllegalArgumentException e) {
-                outputView.printErrorMessage(e.getMessage());
-            }
-        }
+        return retryUntilSuccess(() -> {
+            outputView.printParticipantsNameRequest();
+            String playersName = inputView.readPlayersName();
+            validator.validatePlayersName(playersName);
+            return parser.parsePlayersName(playersName);
+        });
     }
 
     private Money readBettingMoney(String userName) {
-        while (true) {
-            try {
-                outputView.printBettingMoneyRequest(userName);
-                String bettingMoney = inputView.readBettingMoney();
-                validator.validateEmptyBettingMoney(bettingMoney);
-                Money parsedBettingMoney = parser.parseBettingMoney(bettingMoney);
-                validator.validateNegativeBettingMoney(parsedBettingMoney.getValue());
-                return parsedBettingMoney;
-            } catch (IllegalArgumentException e) {
-                outputView.printErrorMessage(e.getMessage());
-            }
-        }
+        return retryUntilSuccess(() -> {
+            outputView.printBettingMoneyRequest(userName);
+            String bettingMoney = inputView.readBettingMoney();
+            validator.validateEmptyBettingMoney(bettingMoney);
+            Money parsedBettingMoney = parser.parseBettingMoney(bettingMoney);
+            validator.validateNegativeBettingMoney(parsedBettingMoney.getValue());
+            return parsedBettingMoney;
+        });
     }
 
     private void processAllPlayersHitOrStand() {
@@ -131,15 +124,11 @@ public class BlackjackController {
     }
 
     private String readHitOrStand() {
-        while (true) {
-            try {
-                String answer = inputView.readYesOrNo();
-                validator.validateAnswer(answer);
-                return answer;
-            } catch (IllegalArgumentException e) {
-                outputView.printErrorMessage(e.getMessage());
-            }
-        }
+        return retryUntilSuccess(() -> {
+            String answer = inputView.readYesOrNo();
+            validator.validateAnswer(answer);
+            return answer;
+        });
     }
 
     private UserCardsDTO processHitOrStand(String answer, int index) {
@@ -151,5 +140,14 @@ public class BlackjackController {
 
     private boolean isStopCommand(String answer) {
         return answer.equalsIgnoreCase("n");
+    }
+
+    private <T> T retryUntilSuccess(Supplier<T> supplier) {
+        try {
+            return supplier.get();
+        } catch (IllegalArgumentException e) {
+            outputView.printErrorMessage(e.getMessage());
+            return retryUntilSuccess(supplier);
+        }
     }
 }
