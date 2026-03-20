@@ -18,7 +18,7 @@ public class Hand {
         totalScore = 0;
     }
 
-    public void saveCard(Card card) {
+    public void receive(Card card) {
         cards.add(card);
     }
 

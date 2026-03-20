@@ -66,7 +66,7 @@ public class HandTest {
     private int calculateScoreOf(List<Card> cards) {
         Hand hand = new Hand();
         for (Card card : cards) {
-            hand.saveCard(card);
+            hand.receive(card);
         }
         hand.calculateHandScore();
         return hand.getTotalScore();

@@ -8,7 +8,7 @@ public class Dealer {
     }
 
     public void receiveCard(Card card) {
-        hand.saveCard(card);
+        hand.receive(card);
     }
 
     public Card getFirstCard() {
