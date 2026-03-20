@@ -59,10 +59,14 @@ public class BlackjackService {
     }
 
     public UserCardsDTO hit(int index) {
-        participants.dealCard(deck, index);
+        participants.receiveCard(deal(), index);
         participants.calculateUserScore(index);
         User user = participants.getPlayer(index);
         return UserCardsDTO.fromUser(user);
+    }
+
+    private Card deal() {
+        return deck.draw();
     }
 
     public UserCardsDTO stand(int index) {

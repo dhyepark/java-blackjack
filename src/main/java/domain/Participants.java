@@ -53,8 +53,8 @@ public class Participants {
                 .collect(Collectors.toList());
     }
 
-    public void dealCard(Deck deck, int index) {
-        players.get(index).receiveCard(deck.draw());
+    public void receiveCard(Card card, int index) {
+        players.get(index).receiveCard(card);
     }
 
     public void calculateUserScore(int index) {
